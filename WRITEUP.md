@@ -1,6 +1,8 @@
 # I Put Gemma 4's 2B Model on My Phone to Distill a Day of Screenshots Into a Recap
 
-▶ **Watch the 1-minute demo**: https://youtube.com/shorts/W_pw4Lqcz14
+*This is a submission for the [Gemma 4 Challenge: Build with Gemma 4](https://dev.to/challenges/google-gemma-2026-05-06)*
+
+![AetherLens cover](https://raw.githubusercontent.com/myberry2026/gemma-video/master/cover.png)
 
 ## The Problem That Won't Go Away
 
@@ -17,6 +19,16 @@ The problem with that wish: nobody is going to build it at a level of privacy I'
 Then **Gemma-4-E2B** dropped. 2.4 gigabytes. Multimodal. Reasoning. Runs on a phone.
 
 That was the *aha* moment. Why am I wishing for this? Why don't I just build it RIGHT NOW?
+
+## Demo
+
+▶ **1-minute video walkthrough**: https://youtube.com/shorts/W_pw4Lqcz14
+
+## Code
+
+GitHub: https://github.com/myberry2026/gemma-video
+
+`./install.sh <device-id>`, point it at a Gemma-4-E2B model file, and you have your own private daily-recap engine in fifteen minutes.
 
 ## What I Built: AetherLens
 
@@ -52,7 +64,7 @@ The captures live in `/sdcard/AetherLens/raw/`. The 2.4 GB Gemma-4-E2B model liv
 
 That's the whole stack. **Three layers. One model. Fully on the phone.**
 
-## Why Gemma-4-E2B Specifically
+## How I Used Gemma 4 (Why E2B Specifically)
 
 When I started, I tried every model in the family:
 
