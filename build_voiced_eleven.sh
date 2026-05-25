@@ -48,7 +48,7 @@ with urllib.request.urlopen(req, timeout=120) as r:
 }
 
 # Pull API key + voice from env or from ELEVEN_LABS.md
-export ELEVEN_API_KEY="${ELEVEN_API_KEY:-REDACTED_ELEVEN_KEY}"
+: "${ELEVEN_API_KEY:?Set ELEVEN_API_KEY in your shell before running (never commit it)}"
 export ELEVEN_VOICE_ID="${ELEVEN_VOICE_ID:-JBFqnCBsd6RMkjVDRZzb}"
 export ELEVEN_MODEL_ID="${ELEVEN_MODEL_ID:-eleven_v3}"
 

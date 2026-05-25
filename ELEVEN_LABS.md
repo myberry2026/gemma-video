@@ -3,7 +3,7 @@ import json
 import time
 import os
 
-api_key = "REDACTED_ELEVEN_KEY"
+api_key = os.environ["ELEVEN_API_KEY"]  # `export ELEVEN_API_KEY=...` before running
 voice_id = "JBFqnCBsd6RMkjVDRZzb"  # George (Premade Warm Resonant Male Voice)
 model_id = "eleven_v3"
 
