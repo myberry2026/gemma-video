@@ -100,13 +100,13 @@ P5_END = 16.0   # Linger to read badges
 P6_END = 18.0   # Fade out duplicates
 P7_END = 24.0   # 7 highlighted + summary bullets (6s, long dwell)
 
-def caption_bar(draw, lines, alpha=255):
+def caption_bar(draw, lines):
     """Render a bottom caption strip with up to 2 short lines."""
     bar_y = H - 220
-    draw.rectangle([0, bar_y - 30, W, H], fill=(0, 0, 0, int(180 * alpha / 255)))
-    draw.line([(0, bar_y - 30), (W, bar_y - 30)], fill=PURPLE + (alpha,), width=4)
+    draw.rectangle([0, bar_y - 30, W, H], fill=(0, 0, 0, 200))
+    draw.line([(0, bar_y - 30), (W, bar_y - 30)], fill=PURPLE, width=4)
     for i, (txt, col) in enumerate(lines):
-        draw.text((SIDE, bar_y + i * 70), txt, fill=col + (alpha,), font=font(46))
+        draw.text((SIDE, bar_y + i * 70), txt, fill=col, font=font(46))
 
 
 def render(t):
@@ -115,13 +115,12 @@ def render(t):
 
     # ===== P1: Title intro (0 -> 2.5s) =====
     if t < P1_END:
-        a = min(255, int(255 * t / 0.8))
-        draw.text((SIDE, 110), "20 raw screenshots", fill=WHITE + (a,), font=font(86))
-        draw.text((SIDE, 220), "captured every 15 seconds", fill=PURPLE + (a,), font=font(50))
+        draw.text((SIDE, 110), "20 raw screenshots", fill=WHITE, font=font(86))
+        draw.text((SIDE, 220), "captured every 15 seconds", fill=PURPLE, font=font(50))
         caption_bar(draw, [
             ("Every active app gets ~20 frames per day.", WHITE),
             ("Most of them look almost identical.", PURPLE),
-        ], alpha=a)
+        ])
 
     # ===== P2: Progressive thumb reveal (2.5 -> 6.5s) =====
     elif t < P2_END:
@@ -158,14 +157,13 @@ def render(t):
             x, y = cell(i)
             img.paste(thumbs[i], (x, y))
 
-        # Title crossfade
-        tt = min(1, (t - P3_END) / 0.7)
-        draw.text((SIDE, 110), "20 raw screenshots",
-                  fill=WHITE + (int(255 * (1 - tt)),), font=font(86))
-        draw.text((SIDE, 110), "Multi-level dedup",
-                  fill=RED + (int(255 * tt),), font=font(86))
-        draw.text((SIDE, 220), "pHash → Gemma-4 similarity",
-                  fill=PURPLE + (int(255 * tt),), font=font(50))
+        # Hard-cut title swap (PIL text alpha is unreliable on RGB)
+        if t - P3_END < 0.3:
+            draw.text((SIDE, 110), "20 raw screenshots", fill=WHITE, font=font(86))
+            draw.text((SIDE, 220), "captured every 15 seconds", fill=PURPLE, font=font(50))
+        else:
+            draw.text((SIDE, 110), "Multi-level dedup", fill=RED, font=font(86))
+            draw.text((SIDE, 220), "pHash → Gemma-4 similarity", fill=PURPLE, font=font(50))
 
         # Reveal red overlays one by one over 4s
         reveal_t = (t - P3_END - 0.7) / (P4_END - P3_END - 0.7)
@@ -238,7 +236,7 @@ def render(t):
         draw.text((SIDE, 110), "7 narrative highlights", fill=GOLD, font=font(86))
         draw.text((SIDE, 220), "curated by Gemma-4-E2B", fill=PURPLE, font=font(50))
 
-        for i in selected:
+        for rank, i in enumerate(sorted(selected), start=1):
             x, y = cell(i)
             bump = 1 + 0.06 * max(0, 1 - prog / 0.4)
             if bump > 1.01:
@@ -251,23 +249,27 @@ def render(t):
             border = 8
             draw.rectangle([x - border, y - border, x + THUMB_W + border, y + THUMB_H + border],
                            outline=GOLD, width=border)
+            # Rank badge top-left, e.g. "1/7"
+            badge = f"{rank}/7"
+            tw_b = font(36).getlength(badge) + 18
+            draw.rectangle([x + 4, y + 4, x + 4 + tw_b, y + 4 + 50],
+                           fill=GOLD)
+            draw.text((x + 12, y + 6), badge, fill=(15, 18, 30), font=font(36))
 
-        # Summary panel at the bottom (replaces caption_bar this phase)
+        # Summary panel at the bottom — staggered reveal via hard cut per bullet
         panel_y = H - 480
-        panel_alpha = int(255 * min(1, (t - P6_END - 0.5) / 1.0)) if t > P6_END + 0.5 else 0
-        draw.rectangle([0, panel_y - 30, W, H], fill=(0, 0, 0, int(210 * panel_alpha / 255)))
-        draw.line([(0, panel_y - 30), (W, panel_y - 30)], fill=GOLD + (panel_alpha,), width=4)
+        if t > P6_END + 0.3:
+            draw.rectangle([0, panel_y - 30, W, H], fill=(0, 0, 0, 220))
+            draw.line([(0, panel_y - 30), (W, panel_y - 30)], fill=GOLD, width=4)
         bullets = [
-            ("✓ 13 duplicates removed (pHash + visual similarity)", WHITE),
-            ("✓ 7 most diverse frames selected by Gemma-4-E2B", GOLD),
-            ("✓ Curation finished in 20.4s on workstation", PURPLE),
-            ("✓ Same model runs on the phone — no cloud required", PURPLE),
+            ("✓ 13 duplicates removed (pHash + Gemma)", WHITE),
+            ("✓ 7 most diverse frames kept",            GOLD),
+            ("✓ Curated in 20.4s by Gemma-4-E2B",       PURPLE),
+            ("✓ Same model runs locally on the phone", PURPLE),
         ]
         for i, (txt, col) in enumerate(bullets):
-            # Stagger reveal of each bullet
-            reveal = max(0, min(1, (t - P6_END - 0.8 - i * 0.4) / 0.3))
-            a = int(panel_alpha * reveal)
-            draw.text((SIDE, panel_y + i * 90), txt, fill=col + (a,), font=font(42))
+            if t > P6_END + 0.8 + i * 0.5:
+                draw.text((SIDE, panel_y + i * 90), txt, fill=col, font=font(40))
 
     return img
 
