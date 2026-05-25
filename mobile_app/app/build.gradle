@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.gemma.videomemory'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.gemma.videomemory"
+        minSdk 30
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+        freeCompilerArgs += '-Xskip-metadata-version-check'
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/io.netty.versions.properties"
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
+    
+    // Ktor Server Dependencies
+    implementation "io.ktor:ktor-server-core:2.3.13"
+    implementation "io.ktor:ktor-server-netty:2.3.13"
+    implementation "io.ktor:ktor-server-content-negotiation:2.3.13"
+    implementation "io.ktor:ktor-serialization-kotlinx-json:2.3.13"
+    
+    // Ktor Client Dependencies
+    implementation "io.ktor:ktor-client-core:2.3.13"
+    implementation "io.ktor:ktor-client-cio:2.3.13"
+    implementation "io.ktor:ktor-client-content-negotiation:2.3.13"
+    implementation "io.ktor:ktor-client-logging:2.3.13"
+    
+    // Image Loading
+    implementation "io.coil-kt:coil:2.5.0"
+
+    // LiteRT-LM on-device inference
+    implementation "com.google.ai.edge.litertlm:litertlm-android:0.11.0"
+    // NanoHTTPD for embedded OpenAI-compatible LLM server
+    implementation "org.nanohttpd:nanohttpd:2.3.1"
+    
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

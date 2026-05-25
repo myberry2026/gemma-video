@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#07080C">
+
+    <!-- Top Header Layout -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#0C0E17">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AETHER LENS"
+                android:textColor="#06B6D4"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2" />
+
+            <!-- Live Status Indicator Badge -->
+            <LinearLayout
+                android:id="@+id/layout_status_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#1E293B"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:backgroundTint="#1F2937">
+
+                <View
+                    android:id="@+id/view_status_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="#EF4444"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/text_status_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="INACTIVE"
+                    android:textColor="#949DB0"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen Memory Companion"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Main Content Container Viewport -->
+    <FrameLayout
+        android:id="@+id/content_viewport"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_layout"
+        android:layout_above="@+id/bottom_navigation_bar">
+
+        <!-- TAB 1: Settings Layout -->
+        <ScrollView
+            android:id="@+id/layout_tab_settings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#111827"
+                    android:padding="16dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="System Configuration"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Accessibility capture and local storage management."
+                        android:textColor="#949DB0"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="16dp" />
+
+                    <Button
+                        android:id="@+id/btn_toggle_accessibility"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Configure Accessibility Layer"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#8B5CF6"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#111827"
+                    android:padding="16dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gemma LLM Mode"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_llm_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+
+                        <RadioButton
+                            android:id="@+id/rb_remote_llm"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Workstation"
+                            android:textColor="#FFFFFF"
+                            android:buttonTint="#06B6D4"
+                            android:textSize="13sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_native_llm"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="On-Device"
+                            android:textColor="#FFFFFF"
+                            android:buttonTint="#A78BFA"
+                            android:textSize="13sp" />
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/edit_llm_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="#1F2937"
+                        android:hint="Endpoint URL"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#4B5563"
+                        android:textSize="12sp"
+                        android:paddingHorizontal="12dp"
+                        android:inputType="textUri" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#111827"
+                    android:padding="16dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Local Model Management"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:id="@+id/text_model_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status: Model not found"
+                        android:textColor="#949DB0"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="12dp" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_model_download"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:visibility="gone"
+                        android:progressTint="#06B6D4" />
+
+                    <Button
+                        android:id="@+id/btn_download_model"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Download Gemma-4-E2B-it"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#06B6D4"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#111827"
+                    android:padding="16dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Operational Actions"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
+
+                    <Button
+                        android:id="@+id/btn_manual_recap"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Trigger Manual Recap"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#3B82F6"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:id="@+id/text_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status: Suspended"
+                        android:textColor="#949DB0"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_start_logging"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:text="Start"
+                            android:textColor="#FFFFFF"
+                            android:backgroundTint="#10B981"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="6dp" />
+
+                        <Button
+                            android:id="@+id/btn_stop_logging"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:text="Suspend"
+                            android:textColor="#FFFFFF"
+                            android:backgroundTint="#EF4444"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="6dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Local Storage"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Folder: /sdcard/AetherLens\nCaptured files are processed on-device by the OpenCV visual recap and Gemma-4 pipeline."
+                    android:textColor="#5E6677"
+                    android:textSize="12sp"
+                    android:lineSpacingExtra="2dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- TAB 2: Album Layout -->
+        <LinearLayout
+            android:id="@+id/layout_tab_album"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Memory Album"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_album_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="0 screenshots"
+                    android:textColor="#949DB0"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <!-- Album Grid -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_album"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp" />
+        </LinearLayout>
+
+        <!-- TAB 3: Storyboard Layout -->
+        <LinearLayout
+            android:id="@+id/layout_tab_storyboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="visible">
+
+            <!-- Fallback Banner indicator -->
+            <LinearLayout
+                android:id="@+id/layout_storyboard_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#1E1B4B"
+                android:padding="10dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="#A78BFA"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/text_storyboard_banner_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Showing active debug logs (today)"
+                    android:textColor="#C084FC"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yesterday's Screen Story"
+                android:textColor="#A78BFA"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Storyboard List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_storyboard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Bottom Glassmorphic Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#E60D0E12"
+        android:paddingBottom="20dp"
+        android:elevation="8dp">
+
+        <!-- Tab 1 Button: Storyboard -->
+        <LinearLayout
+            android:id="@+id/btn_tab_storyboard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <TextView
+                android:id="@+id/text_tab_storyboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Storyboard"
+                android:textColor="#A78BFA"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp" />
+
+            <View
+                android:id="@+id/indicator_tab_storyboard"
+                android:layout_width="16dp"
+                android:layout_height="3dp"
+                android:background="#A78BFA"
+                android:layout_marginTop="4dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <!-- Tab 2 Button: Album -->
+        <LinearLayout
+            android:id="@+id/btn_tab_album"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <TextView
+                android:id="@+id/text_tab_album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Album"
+                android:textColor="#5E6677"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp" />
+
+            <View
+                android:id="@+id/indicator_tab_album"
+                android:layout_width="16dp"
+                android:layout_height="3dp"
+                android:background="#8B5CF6"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <!-- Tab 3 Button: Settings -->
+        <LinearLayout
+            android:id="@+id/btn_tab_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <TextView
+                android:id="@+id/text_tab_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textColor="#5E6677"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp" />
+
+            <View
+                android:id="@+id/indicator_tab_settings"
+                android:layout_width="16dp"
+                android:layout_height="3dp"
+                android:background="#06B6D4"
+                android:layout_marginTop="4dp"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Fullscreen Screen Capture Preview Overlay -->
+    <FrameLayout
+        android:id="@+id/layout_fullscreen_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FB000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="16dp">
+
+        <ImageView
+            android:id="@+id/img_fullscreen_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center" />
+
+        <!-- Overlay Action Bar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="top"
+            android:background="#4D000000"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp">
+
+            <Button
+                android:id="@+id/btn_close_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#374151"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/btn_delete_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete memory"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#EF4444"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</RelativeLayout>

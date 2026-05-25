@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AetherLens Screen Memory</string>
+    <string name="accessibility_service_description">AetherLens background screen logging service captures periodic screenshot frames every 5s and app-switch highlights to build a local daily storyboard recap dashboard.</string>
+</resources>

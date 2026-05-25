@@ -1,0 +1,71 @@
+# Android
+**/build/
+*.apk
+*.aar
+*.jks
+*.keystore
+local.properties
+.gradle/
+.kotlin/
+capture_storyboard.py.bk
+
+# Android SDK
+android-sdk/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+demo_venv/
+
+# Logs and databases
+*.log
+*_log.txt
+results.txt
+crash_log.txt
+pm_log.txt
+
+# Media and Data (Test results/samples)
+*.mp4
+*.jpg
+*.png
+!dashboard/images/*.jpg
+!dashboard/images/*.png
+!aeva2/architecture.png
+!aeva2/alarm_manual.png
+!aeva2/bridge_status.png
+!aeva2/search_manual.png
+!aeva2/screen_after_enter.png
+
+# IDEs and Tools
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+gradle-8.5/
+gradle-8.5-bin.zip
+debug.keystore
+local_model.md
+.gstack/
